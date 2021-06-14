@@ -12,7 +12,7 @@ enum API:String {
  
     case baseURL = "https://api.openweathermap.org/data/2.5"
     case currentWeather = "/onecall"
-    case key = "fb5c7b073c76e73b4505f3fffc24f18a"
+    case key = ""
 }
 
 protocol RequestEnvelop {
