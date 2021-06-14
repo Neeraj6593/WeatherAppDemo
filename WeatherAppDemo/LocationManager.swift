@@ -10,10 +10,9 @@ import CoreLocation
 
 class LocationManager:NSObject,CLLocationManagerDelegate{
     
-    var locationManager:CLLocationManager!
     var locationCallback:((CLLocationManager)->())!
     func determineMyCurrentLocation() {
-        locationManager = CLLocationManager()
+        let locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
@@ -24,7 +23,7 @@ class LocationManager:NSObject,CLLocationManagerDelegate{
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if locationManager.location?.coordinate != nil {
+        if manager.location?.coordinate != nil {
            locationCallback(manager)
         }
     }
