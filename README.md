@@ -1,3 +1,3 @@
 # WeatherAppDemo
 
-Please add Open Weather API key in NetworkManager.swift file.  
+Please add Open Weather API key in NetworkHandler.swift file.  
