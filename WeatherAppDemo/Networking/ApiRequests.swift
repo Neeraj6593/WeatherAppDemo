@@ -9,10 +9,6 @@ import Foundation
 
 struct CurrentApiRequest:RequestEnvelop {
     var endPoint: String
-    
     var httpMethod: String
-    
     var queryParam: [String : Any]
-    
-    
 }

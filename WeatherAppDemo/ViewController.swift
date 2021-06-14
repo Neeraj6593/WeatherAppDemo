@@ -14,14 +14,19 @@ class ViewController: UIViewController {
     @IBOutlet weak var temp:UILabel!
     @IBOutlet weak var humidity:UILabel!
     var currentWeather:CurrentWeather!
-    var locationManager:CLLocationManager!
+    let locationManager = LocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        determineMyCurrentLocation()
+        
+        locationManager.locationCallback = {[weak self] manager in
+            self?.updateLocationdata(locationManager: manager)
+        }
+        locationManager.determineMyCurrentLocation()
+        
     }
     
-    func updateLocationdata(){
+    func updateLocationdata(locationManager:CLLocationManager){
         currentWeather = CurrentWeather(lat: (locationManager.location?.coordinate.latitude)! , lon: (locationManager.location?.coordinate.longitude)! )
         currentWeather.loadWeatherData {[weak self] weather in
             DispatchQueue.main.async {
@@ -48,30 +53,3 @@ class ViewController: UIViewController {
 }
 
 
-extension ViewController:CLLocationManagerDelegate{
-    
-    func determineMyCurrentLocation() {
-        
-        
-        
-        locationManager = CLLocationManager()
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestAlwaysAuthorization()
-        
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.startUpdatingLocation()
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if locationManager.location?.coordinate != nil {
-            updateLocationdata()
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
-    {
-        print("Error \(error)")
-    }
-}
