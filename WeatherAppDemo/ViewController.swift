@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var weather:UILabel!
     @IBOutlet weak var temp:UILabel!
     @IBOutlet weak var humidity:UILabel!
-    var currentWeather:CurrentWeather!
+  
     let locationManager = LocationManager()
     
     override func viewDidLoad() {
@@ -27,7 +27,7 @@ class ViewController: UIViewController {
     }
     
     func updateLocationdata(locationManager:CLLocationManager){
-        currentWeather = CurrentWeather(lat: (locationManager.location?.coordinate.latitude)! , lon: (locationManager.location?.coordinate.longitude)! )
+       let currentWeather = CurrentWeather(lat: (locationManager.location?.coordinate.latitude)! , lon: (locationManager.location?.coordinate.longitude)! )
         currentWeather.loadWeatherData {[weak self] weather in
             DispatchQueue.main.async {
             if let _weather = weather {
